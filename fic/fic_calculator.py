@@ -10,6 +10,7 @@ class FICCalculator:
         self.drug1_concs = drug1_concs
         self.drug2_concs = drug2_concs
         self.cutoff = self._calculate_cutoff()
+        print(f"Cutoff - {self.cutoff }")
         self._assign_concentrations()
 
     def _calculate_cutoff(self):
@@ -29,7 +30,14 @@ class FICCalculator:
             return None
         FIC1 = well.drug1_conc / self.mic_drug1
         FIC2 = well.drug2_conc / self.mic_drug2
-        print(f"For Well {well.row}-{well.col}  ===> F1C1 {FIC1} FIC2{FIC2}")
+
+        print("-")
+        print(f"For Well {well.row}-{well.col} ")
+        print(f"FIC1 = {well.drug1_conc} / {self.mic_drug1} = {FIC1}")
+        print(f"FIC2 = {well.drug2_conc} / {self.mic_drug2} = {FIC2}")
+        print(f"Total {FIC1 + FIC2}")
+        print("-")
+
         return FIC1 + FIC2
 
     def find_min_fic(self):
