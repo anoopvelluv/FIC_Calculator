@@ -1,7 +1,5 @@
 import pandas as pd
-
 from fic.well import Well
-
 
 class PlateData:
     def __init__(self, filepath):

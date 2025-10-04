@@ -8,7 +8,6 @@ if __name__ == "__main__":
     mic_drug1 = 0.125
     mic_drug2 = 1.0
 
-
     # Define concentration layout (row = drug1, col = drug2)
     drug1_concs = {1: 0, 2: 0.5, 3: 0.25, 4: 0.125, 5: 0.063, 6: 0.031, 7: 0.016, 8: 0.0078, 9: 0.0039, 10: 0.0019}
     drug2_concs = {"A": 2.0, "B": 1.0, "C": 0.5, "D": 0.25, "E": 0.125, "F": 0.063, "G": 0.031, "H": 0.016}

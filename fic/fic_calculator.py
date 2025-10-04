@@ -1,8 +1,8 @@
 class FICCalculator:
     def __init__(self, plate_data, mic_drug1, mic_drug2, drug1_concs, drug2_concs):
         """
-        drug1_concs: dict mapping (row) -> Drug1 concentration
-        drug2_concs: dict mapping (col) -> Drug2 concentration
+        drug1_concs: dict mapping (col) -> Drug1 concentration
+        drug2_concs: dict mapping (row) -> Drug2 concentration
         """
         self.plate = plate_data
         self.mic_drug1 = mic_drug1
@@ -45,6 +45,7 @@ class FICCalculator:
         print(f"Absorbance values <= cutoff : {[w.absorbance for w in candidate_wells]}")
 
         candidate_wells = [w for w in candidate_wells if self.calculate_fic(w) is not None]
+
         if not candidate_wells:
             return None, None
 
