@@ -20,10 +20,10 @@ class FICCalculator:
 
     def _assign_concentrations(self):
         for w in self.plate.get_combinations():
-            if w.row in self.drug1_concs:
-                w.drug1_conc = self.drug1_concs[w.row]
-            if w.col in self.drug2_concs:
-                w.drug2_conc = self.drug2_concs[w.col]
+            if w.col in self.drug1_concs:
+                w.drug1_conc = self.drug1_concs[w.col]
+            if w.row in self.drug2_concs:
+                w.drug2_conc = self.drug2_concs[w.row]
 
     def calculate_fic(self, well):
         if well.drug1_conc is None or well.drug2_conc is None:
