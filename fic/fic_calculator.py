@@ -10,7 +10,7 @@ class FICCalculator:
         self.drug1_concs = drug1_concs
         self.drug2_concs = drug2_concs
         self.cutoff = self._calculate_cutoff()
-        print(f"Cutoff - {self.cutoff }")
+        print(f"Calculated Cut-off  - {self.cutoff}")
         self._assign_concentrations()
 
     def _calculate_cutoff(self):
@@ -24,6 +24,9 @@ class FICCalculator:
                 w.drug1_conc = self.drug1_concs[w.col]
             if w.row in self.drug2_concs:
                 w.drug2_conc = self.drug2_concs[w.row]
+
+                if(self.drug1_concs[w.col] == 0):
+                    w.drug2_only = True
 
     def calculate_fic(self, well):
         if well.drug1_conc is None or well.drug2_conc is None:
@@ -45,7 +48,6 @@ class FICCalculator:
         print(f"Absorbance values <= cutoff : {[w.absorbance for w in candidate_wells]}")
 
         candidate_wells = [w for w in candidate_wells if self.calculate_fic(w) is not None]
-
         if not candidate_wells:
             return None, None
 
@@ -54,6 +56,20 @@ class FICCalculator:
 
         min_fic = self.calculate_fic(min_well)
         return min_well, min_fic
+
+    def find_min_mic_drug_2(self):
+        candidate_wells = [w for w in self.plate.get_combinations() if
+                           w.absorbance <= self.cutoff and w.drug2_only == True]
+        print(f"Absorbance values <= cutoff : {[w.absorbance for w in candidate_wells]}")
+
+        candidate_wells = [w for w in candidate_wells if self.calculate_fic(w) is not None]
+        if not candidate_wells:
+            return None, None
+
+        min_well = min(candidate_wells, key=lambda w: self.calculate_fic(w))
+        print(f"Minimum Well Value(absorbance) : {min_well.absorbance}")
+
+        return min_well.drug2_conc
 
     @staticmethod
     def interpret_fic(fic_value):
